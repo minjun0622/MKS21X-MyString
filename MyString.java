@@ -1,5 +1,6 @@
 public class MyString implements CharSequence, Comparable<CharSequence>{
   private char[] data;
+  
   public MyString(CharSequence s){
     data = new char[s.length];
 //Initializing data with the length of s.
@@ -9,6 +10,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
       //copies it over.
     }
   }
+
 //Returns the char value at the specified index. An index ranges from zero to length() - 1.
 //The first char value of the sequence is at index zero, the next at index one, and so on, as for array indexing.
 //If the char value specified by the index is a surrogate, the surrogate value is returned.
@@ -22,6 +24,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     public int length(int index) {
       return data.length;
     }
+
 //Charsequence is a sequence of strings,
 //subSequence returns the sequence of strings beginning from start integer and end intger.
     public CharSequence subSequence(int start, int end) {
@@ -29,8 +32,13 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
         throw new IndexOutofBoundsException("Start is not negative,
         end is not negative, end should not be greater than length, start is not greater than end.");
       }
-      return newdata[start, end]
+      String result = "";
+      for (int i = start; i < end; i++) {
+        result += data[i];
+        //Utilizes a for loop to start from the start specified with the integer and ending it with an end.
+      }
     }
+
 //Returns a string containing the characters in this sequence in the same order as this sequence.
 //The length of the string will be the length of this sequence.
     public String toString () {
