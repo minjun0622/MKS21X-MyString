@@ -1,9 +1,12 @@
 public class MyString implements CharSequence, Comparable<CharSequence>{
   private char[] data;
   public MyString(CharSequence s){
+    data = new char[s.length];
+//Initializing data with the length of s.
     char data [] = char newdata [s.length()];
     for (int i = 0; i < s.length(); i++) {
       data[i] = s.charAt(i);
+      //copies it over.
     }
   }
 //Returns the char value at the specified index. An index ranges from zero to length() - 1.
