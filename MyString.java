@@ -1,6 +1,6 @@
 public class MyString implements CharSequence, Comparable<CharSequence>{
   private char[] data;
-  
+
   public MyString(CharSequence s){
     data = new char[s.length];
 //Initializing data with the length of s.
@@ -42,6 +42,11 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //Returns a string containing the characters in this sequence in the same order as this sequence.
 //The length of the string will be the length of this sequence.
     public String toString () {
-      return newdata;
+      String result = "";
+      for (int i = 0; i < length(); i++) {
+        result += data[i];
+      }
+      return result;
+      //similiar to subsequence, instead, it uses a for loop to copy over the entire data into a string.
     }
   }
