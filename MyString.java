@@ -20,6 +20,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     }
     data[index];
     }
+    
 //Returns the length of the sequence at the index specified.
     public int length(int index) {
       return data.length;
@@ -49,17 +50,33 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
       return result;
       //similiar to subsequence, instead, it uses a for loop to copy over the entire data into a string.
     }
-//Compares the 
+
+//Compares the object and the object specified.
     public compareTo (CharSequence o) {
       if (o = null) {
         throw new NullPointerException("The object cannot be null");
         //throws an exception when the object is null.
       }
-      if ()
-      //throws an exception when the object's type is not valid.
-
+      if (this.length() < o.length()) {
+        return 1;
+      }
+      if (this.length() > o.length()) {
+        return 1;
+      }
+      for (int i = 0; i < o.length(); i++) {
+        if (this.charAt(i) != o.charAt(i)) {
+          return (int)(this.charAt(i)) - (int)(o.charAt(i));
+        }
+      }
+      return 0;
     }
+    //a negative integer, zero, or a positive integer as this object is less than,
+    //equal to, or greater than the specified object.
+
     public static void main(String[] args) {
+      try {
+        System.out.println()
+      }
 
 
     }
