@@ -13,19 +13,19 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //The first char value of the sequence is at index zero, the next at index one, and so on, as for array indexing.
 //If the char value specified by the index is a surrogate, the surrogate value is returned.
   public char charAt(int index) {
-    if (index < 0 || index > data.length) {
+    if (index < 0 || index >= data.length) {
       throw new IndexOutofBoundsException("Index cannot be negative or greater/equal to the length");
     }
-    return newdata [s.length()];
+    data[index];
     }
 //Returns the length of the sequence at the index specified.
     public int length(int index) {
-      return newdata [s.length()];
+      return data.length;
     }
 //Charsequence is a sequence of strings,
 //subSequence returns the sequence of strings beginning from start integer and end intger.
     public CharSequence subSequence(int start, int end) {
-      if (start < 0 || end < 0 || end > s.length() || start > end) {
+      if (start < 0 || end < 0 || end > length() || start > end) {
         throw new IndexOutofBoundsException("Start is not negative,
         end is not negative, end should not be greater than length, start is not greater than end.");
       }
