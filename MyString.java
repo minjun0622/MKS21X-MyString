@@ -49,4 +49,18 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
       return result;
       //similiar to subsequence, instead, it uses a for loop to copy over the entire data into a string.
     }
+//Compares the 
+    public compareTo (CharSequence o) {
+      if (o = null) {
+        throw new NullPointerException("The object cannot be null");
+        //throws an exception when the object is null.
+      }
+      if ()
+      //throws an exception when the object's type is not valid.
+
+    }
+    public static void main(String[] args) {
+
+
+    }
   }
