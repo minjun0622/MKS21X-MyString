@@ -17,7 +17,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     if (index < 0 || index >= data.length) {
       throw new IndexOutofBoundsException("Index cannot be negative or greater/equal to the length");
     }
-    data[index];
+    return data[index];
     }
 
 //Returns the length of the sequence at the index specified.
