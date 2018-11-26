@@ -4,7 +4,6 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
   public MyString(CharSequence s){
     data = new char[s.length];
 //Initializing data with the length of s.
-    char data [] = char newdata [s.length()];
     for (int i = 0; i < s.length(); i++) {
       data[i] = s.charAt(i);
       //copies it over.
