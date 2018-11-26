@@ -61,7 +61,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
         return data.length - o.length();
       }
       for (int i = 0; i < data.length; i++) {
-        if (data[i] != o.charAt[i]) {
+        if (data[i] != o.charAt(i)) {
           return data[i] - o.charAt(i);
         }
       }
