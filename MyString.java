@@ -71,7 +71,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     }
     //a negative integer, zero, or a positive integer as this object is less than,
     //equal to, or greater than the specified object.
-
+/*
     public static void main(String[] args) {
 
     // sole constructor test
@@ -154,4 +154,5 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     System.out.println("msg.compareTo(\"drunk\"): " + msg.compareTo("drunk"));          // -1
 
   }
+  */
   }
