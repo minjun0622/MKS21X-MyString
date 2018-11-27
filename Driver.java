@@ -1,210 +1,346 @@
-import java.util.ArrayList;
-public class Driver{
-  public static void main(String[] args){
-    //testing constructor
-    String[] matchingStrings = {"New York",
-                                "Albany",
-                                "Rochester",
-                                "Purchase",
-                                "Montauk",
-                                "Islip",
-                                "Syracuse",
-                                "Buffalo",
-                                "Plattsburgh",
-                                "Rome",
-                                "Utica",
-                                "Schenectady",
-                                "Yonkers",
-                                "New Rochelle",
-                                "White Plains",
-                                "",
-                                " "
-                              };
-    MyString ms1 = new MyString("glowing");
-    MyString ms2 = new MyString(ms1);
-    MyString[] sampleMSs = sampleVals(matchingStrings);
-    System.out.println("constructor: good");
-    System.out.print("charAt: ");
-    printErrors('A',testCharAt(sampleMSs,matchingStrings));
-    System.out.print("length: ");
-    printErrors('L',testLength(sampleMSs,matchingStrings));
-    System.out.print("subSequence: ");
-    printErrors('S',testSubSequence(sampleMSs,matchingStrings));
-    System.out.print("toString:  ");
-    printErrors('T',testToString(sampleMSs,matchingStrings));
-    System.out.print("compareTo: ");
-    printErrors('C',testCompareTo(sampleMSs,matchingStrings));
-    System.out.println("\nnote: if you somehow messed up length(), it may result in a false positive for other methods; correct length first");
-  }
-  public static int randInt(int start, int endExcluded){
-    return start + (int)(Math.random()*(endExcluded-start));
-  }
-  public static void printErrors(char chr,ArrayList<String> E){
-    if(E.size()==0) System.out.println("good");
+public class driver{
+  //Main
+  public static void main(String[]args){
+    //Strings and MyStrings for testing
+    String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    MyString newAlphabet = new MyString(alphabet);
+    String sentence = "The quick brown fox jumps over the lazy dog.";
+    MyString newSentence = new MyString(sentence);
+    String empty = "";
+    MyString newEmpty = new MyString(empty);
+    //vars for counting wrong tests (individual)
+    boolean test;
+    int wrongCount = 0;
+    //vars for keeping track of which functions need to be worked on
+    boolean goodConstructor = true;
+    boolean goodCharAt = true;
+    boolean goodLength = true;
+    boolean goodSubSequence = true;
+    boolean goodCompareTo = true;
+    String constructor, charAt, length, subSequence, compareTo = "";
+
+//---------------------------------------------------------------------------------------------------//
+
+    //-----Testing the constructor and toString(CharSequence c)-----//
+    System.out.println("\n\n-----Testing the constructor and toString(CharSequence c)-----");
+    System.out.println("Original alphabet: " + alphabet);
+    System.out.println("New MyString newAlphabet: "+newAlphabet.toString());
+    test = alphabet.equals(newAlphabet.toString());
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("Original sentence: " + sentence);
+    System.out.println("New MyString newSentence: "+newSentence.toString());
+    test = sentence.equals(newSentence.toString());
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("Original empty: " + empty);
+    System.out.println("New MyString newEmpty: "+newEmpty.toString());
+    test = empty.equals(newEmpty.toString());
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("\nNumber of wrong tests: "+wrongCount);
+    if (wrongCount > 0) goodConstructor=false; //if wrong tests > 0, constructor not good :(
+    wrongCount = 0;
+
+//---------------------------------------------------------------------------------------------------//
+
+    //-----Testing charAt(int index)-----//
+    System.out.println("\n\n-----Testing charAt(int index)-----");
+    try{
+      System.out.println("alphabet.charAt(0) --> a: " + alphabet.charAt(0));
+      test = alphabet.charAt(0)=='a';
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+      System.out.println("alphabet.charAt(25) --> z: " + alphabet.charAt(25));
+      test = alphabet.charAt(25)=='z';
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+      System.out.println("newAlphabet.charAt(0) --> a: " + newAlphabet.charAt(0));
+      test = newAlphabet.charAt(0)=='a';
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+      System.out.println("newAlphabet.charAt(25) --> z: " + newAlphabet.charAt(25));
+      test = newAlphabet.charAt(25)=='z';
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+
+      //Exception testing
+      System.out.println("\n----------Exception testing for charAt(int index)----------");
+      System.out.println("alphabet.charAt(26) --> Exception: ");
+      System.out.println(alphabet.charAt(26));
+      wrongCount++; //only runs if the above didn't cause an Exception
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+      System.out.println("Test Passed: "+ test);
+    }
+    try{
+      System.out.println("newAlphabet.charAt(26) --> Exception: ");
+      System.out.println(newAlphabet.charAt(26));
+      wrongCount++; //only runs if the above didn't cause an Exception
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+      System.out.println("Test Passed: "+ test);
+    }
+    try{
+      test = true;
+      System.out.println("empty.charAt(0) --> Exception: ");
+      System.out.println(empty.charAt(0));
+      wrongCount++; //only runs if the above didn't cause an Exception
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    try{
+      test = true;
+      System.out.println("newEmpty.charAt(0) --> Exception: ");
+      System.out.println(newEmpty.charAt(0));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    try{
+      test = true;
+      System.out.println("sentence.charAt(-1) --> Exception: ");
+      System.out.println(sentence.charAt(-1));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    System.out.println("\nNumber of wrong tests: "+wrongCount);
+    if (wrongCount > 0) goodCharAt=false; //if wrong tests > 0, charAt not good :(
+    wrongCount = 0;
+
+//---------------------------------------------------------------------------------------------------//
+
+    //-----Testing length()-----//
+    System.out.println("\n\n-----Testing length()-----");
+    System.out.println("newAlphabet.length() --> 26: "+newAlphabet.length());
+    test = newAlphabet.length() == 26;
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("alphabet.length() --> 26: "+alphabet.length());
+    test = alphabet.length() == 26;
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("newEmpty.length() --> 0: "+newEmpty.length());
+    test = newEmpty.length() == 0;
+    if (!test) wrongCount++;
+    System.out.println("Test Passed: "+ test);
+    System.out.println("\nNumber of wrong tests: "+ wrongCount);
+    if (wrongCount > 0) goodLength=false; //if wrong tests > 0, length not good :(
+    wrongCount=0;
+
+  //---------------------------------------------------------------------------------------------------//
+
+    //-----Testing subSequence(int start, int end)-----//
+    System.out.println("\n\n-----Testing subSequence(int start, int end)-----");
+    try{
+      System.out.println("Should print \"bcde\"");
+      System.out.println("Output: " + newAlphabet.subSequence(1, 5));
+      test = newAlphabet.subSequence(1,5).toString().equals(alphabet.substring(1,5));
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+      System.out.println("Should print \"abcdefghijklmnopqrstuvwxy\": ");
+      System.out.println("Output: " + newAlphabet.subSequence(0,26));
+      test = newAlphabet.subSequence(0,26).toString().equals(alphabet.substring(0,26));
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+ test);
+      System.out.println("Should print \" brown\"");
+      System.out.println("Output: " + newSentence.subSequence(9,15));
+      test = newSentence.subSequence(9,15).toString().equals(sentence.substring(9,15));
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+test);
+      System.out.println("Should print \"\"");
+      System.out.println("Output: " + newSentence.subSequence(8,8));
+      test = newSentence.subSequence(8,8).toString().equals(sentence.substring(8,8));
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+test);
+      System.out.println("Should print \"\"");
+      System.out.println("Output: " + newEmpty.subSequence(0,0));
+      test = newEmpty.subSequence(0,0).toString().equals(empty.substring(0,0));
+      if (!test) wrongCount++;
+      System.out.println("Test Passed: "+test);
+
+      //Exception testing
+      System.out.println("\n----------Exception testing for subSequence(int start, int end)----------");
+      test = true;
+      System.out.println("\nnewAlphabet.subSequence(-1,9) --> IndexOutOfBoundsException: ");
+      System.out.println(newAlphabet.subSequence(-1,9));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+      System.out.println("Check for negative indices!");
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    try{
+      test = true;
+      System.out.println("\nnewAlphabet.subSequence(10, -1) --> IndexOutOfBoundsException: ");
+      System.out.println(newAlphabet.subSequence(10,-1));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+      System.out.println("Check for negative indices!");
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    try{
+      test = true;
+      System.out.println("\nnewAlphabet.subSequence(12, 8) --> IndexOutOfBoundsException: ");
+      System.out.println(newAlphabet.subSequence(12, 8));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+      System.out.println("Check that start =< end!");
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    try{
+      test = true;
+      System.out.println("\nnewAlphabet.subSequence(5, 27) --> IndexOutOfBoundsException: ");
+      System.out.println(newAlphabet.subSequence(5, 27));
+      wrongCount++; //only runs if the above didn't cause an Exception
+      test = false;
+      System.out.println("Check that end =< length!");
+    }
+    catch (IndexOutOfBoundsException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    System.out.println("\nNumber of wrong tests: "+wrongCount);
+    if (wrongCount > 0) goodSubSequence=false; //if wrong tests > 0, subSequence not good :(
+    wrongCount = 0;
+
+//---------------------------------------------------------------------------------------------------//
+
+    //-----Testing compareTo(CharSequence)-----//
+    System.out.println("\n\n-----Testing compareTo(CharSequence)-----");
+    String a = "";
+    String b = "hello";
+    String c = "hello world";
+    String d = "Hello";
+    MyString A = new MyString(a);
+    MyString B = new MyString(b);
+    MyString C = new MyString(c);
+    MyString D = new MyString(d);
+    System.out.println("\nString a = \"\"");
+    System.out.println("String b = \"hello\"");
+    System.out.println("String c = \"hello world\"");
+    System.out.println("String d = \"Hello\"");
+    System.out.println("MyString A = new MyString(a)");
+    System.out.println("MyString B = new MyString(b)");
+    System.out.println("MyString C = new MyString(c)");
+    System.out.println("MyString D = new MyString(d)");
+    try{
+      System.out.println("a.compareTo(a)--> 0: " + a.compareTo(a));
+      if (a.compareTo(a)==0) test = true;
+      else{
+        wrongCount++;
+        test = false;
+        System.out.println("A CharSequence should be equal to itself. Make sure your function works for empty strings.");
+      }
+      System.out.println("Test Passed: "+ test);
+      System.out.println("A.compareTo(A)--> 0: " + A.compareTo(A));
+      if (A.compareTo(A)==0) test = true;
+      else{
+        wrongCount++;
+        test = false;
+        System.out.println("A CharSequence should be equal to itself. Make sure your function works for empty strings.");
+      }
+      System.out.println("Test Passed: "+ test);
+      System.out.println("B.compareTo(c)--> some negative integer: " + B.compareTo(c));
+      if (B.compareTo(c) >= 0){
+        wrongCount++;
+        test = false;
+        System.out.println("Check your return statements. Should be negative.");
+      }
+      System.out.println("Test Passed: "+ test);
+      System.out.println("C.compareTo(B)--> some positive integer: " + C.compareTo(B));
+      if (C.compareTo(B) <= 0){
+        wrongCount++;
+        test = false;
+        System.out.println("Check your return statements. Should be positive.");
+      }
+      System.out.println("Test Passed: "+ test);
+      System.out.println("D.compareTo(b)--> some negative integer: " + D.compareTo(b));
+      if (D.compareTo(b) >= 0){
+        wrongCount++;
+        test = false;
+        System.out.println("Check your return statements. Should be positive.");
+      }
+      System.out.println("Test Passed: "+ test);
+
+      //Exception testing
+      System.out.println("\n----------Exception testing for compareTo----------");
+      System.out.println("A.compareTo(null)--> NullPointerException: ");
+      System.out.println(A.compareTo(null));
+      //Below shouldn't run!!!
+      wrongCount++;
+      test = false;
+      System.out.println("This should cause an exception!");
+    }
+    catch (NullPointerException e){
+      System.out.println(e);
+    }
+    catch (ClassCastException e){
+      System.out.println(e);
+    }
+    System.out.println("Test Passed: "+ test);
+    System.out.println("\nNumber of wrong tests: "+wrongCount);
+    if (wrongCount > 0) goodCompareTo=false; //if wrong tests > 0, compareTo not good :(
+    wrongCount = 0;
+
+  //---------------------------------------------------------------------------------------------------//
+
+    //Results
+    System.out.println("\n\n\nResults!!!");
+    if (goodConstructor){
+      System.out.println("Nice job! Everything works for your constructor and toString!");
+    }
     else{
-      System.out.println("fails, "+E.size()+" errors");
-      for(int i=0;i<E.size();i++){
-        System.out.println("\tC"+(i+1)+".\t"+E.get(i));
-      }
+      System.out.println("Uh oh, you had some mistakes in your constructor or toString. Scroll up for the specific test cases!");
     }
-  }
-  public static MyString[] sampleVals(String[] A){
-    MyString[] out = new MyString[A.length];
-    for(int i=0;i<out.length;i++){
-      out[i] = new MyString(A[i]);
+    if (goodCharAt){
+      System.out.println("Nice job! Everything works for your charAt!");
     }
-    return out;
-  }
-  public static ArrayList<String> testCharAt(MyString[] A,String[] B){
-    ArrayList<String> errors = new ArrayList<String>();
-    for(int i=0;i<A.length;i++){
-      for(int j=0;j<B[i].length();j++){
-        try{
-          if(A[i].charAt(j)!=B[i].charAt(j)) errors.add("incorrect output for \""+A[i]+"\".charAt("+j+"): "+B[i].charAt(j));
-        }catch(StringIndexOutOfBoundsException e){
-          errors.add("exception StringIOOB thrown at incorrect time, \""+B[i]+"\".charAt("+j+")");
-        }catch(ArrayIndexOutOfBoundsException e){
-          errors.add("array throws ArrayIOOB thrown(never should be thrown), when no exception should have thrown, \""+B[i]+"\".charAt("+j+")");
-        }catch(Exception e){
-          errors.add("unexpected exception "+e.getClass().getName()+" thrown when no exception should have, \""+B[i]+"\".charAt("+j+")");
-        }
-      }
-      try{
-        A[i].charAt(-1);
-        errors.add("successful run for bad input, \""+B[i]+"\".charAt(-1) returns '"+A[i].charAt(-1)+"'");
-      }catch(StringIndexOutOfBoundsException e){
-      }catch(ArrayIndexOutOfBoundsException e){
-        errors.add("array throws exception rather than MyString; ArrayIOOB thrown, \""+B[i]+"\".charAt(-1)");
-      }catch(Exception e){
-        errors.add("unexpected exception "+e.getClass().getName()+" thrown instead of StringIOOB, \""+B[i]+"\".charAt(-1)");
-      }
-      try{
-        A[i].charAt(B[i].length());
-        errors.add("successful run for bad input, \""+B[i]+"\".charAt(length()) returns '"+A[i].charAt(B[i].length())+"'");
-      }catch(StringIndexOutOfBoundsException e){
-      }catch(ArrayIndexOutOfBoundsException e){
-        errors.add("array throws exception rather than MyString; ArrayIOOB thrown, \""+B[i]+"\".charAt(length())");
-      }catch(Exception e){
-        errors.add("unexpected exception "+e.getClass().getName()+" thrown instead of StringIOOB, \""+B[i]+"\".charAt(length())");
-      }
-      try{
-        A[i].charAt(200);
-        errors.add("successful run for bad input, \""+B[i]+"\".charAt(200) returns '"+A[i].charAt(200)+"'");
-      }catch(StringIndexOutOfBoundsException e){
-      }catch(ArrayIndexOutOfBoundsException e){
-        errors.add("array throws exception rather than MyString; ArrayIOOB thrown, \""+B[i]+"\".charAt(200)");
-      }catch(Exception e){
-        errors.add("unexpected exception "+e.getClass().getName()+" thrown instead of StringIOOB, \""+B[i]+"\".charAt(200)");
-      }
+    else{
+      System.out.println("Uh oh, you had some mistakes in your charAt. Scroll up for the specific test cases!");
     }
-    return errors;
-  }
-  public static ArrayList<String> testLength(MyString[] A,String[] B){
-    ArrayList<String> errors = new ArrayList<String>();
-    for(int i=0;i<A.length;i++){
-      try{
-        if(A[i].length()!=B[i].length()) errors.add("incorrect output: \""+B[i]+"\".length(), correct "+B[i].length()+",returned "+A[i].length());
-      }catch(Exception e){
-        errors.add("unexpected error "+e.getClass().getName()+" thrown for \""+B[i]+"\".length() (no exception should ever be thrown here)");
-      }
+    if (goodLength){
+      System.out.println("Nice job! Everything works for your length!");
     }
-    return errors;
-  }
-  public static ArrayList<String> testSubSequence(MyString[] A,String[] B){
-    ArrayList<String> errors = new ArrayList<String>();
-    for(int i=0;i<A.length;i++){
-      int start,end;
-      for(int j=0;j<6;j++){//6 tests of any random valid subSequence;
-        start = randInt(0,B[i].length()+1);
-        end = randInt(start,B[i].length()+1);
-        testSubHelper(errors,A[i],B[i],start,end);
-      }
-      for(int j=0;j<3;j++){//3 tests of subSequences ending with length()
-        start = randInt(0,B[i].length()+1);
-        end = B[i].length();
-        testSubHelper(errors,A[i],B[i],start,end);
-      }
-      for(int j=0;j<3;j++){//3 tests of subSquences starting with 0
-        end = randInt(0,B[i].length()+1);
-        testSubHelper(errors,A[i],B[i],0,end);
-      }
-      for(int j=0;j<3;j++){//3 testsof subSequences at same position
-        start = randInt(0,B[i].length()+1);
-        testSubHelper(errors,A[i],B[i],start,start);
-      }
-      testSubHelper(errors,A[i],B[i],0,0);//special case: start and end 0(valid)
-      testSubHelper(errors,A[i],B[i],B[i].length(),B[i].length());//special case: length,length(valid)
+    else{
+      System.out.println("Uh oh, you had some mistakes in your length. Scroll up for the specific test cases!");
     }
-    return errors;
-  }
-  public static void testSubHelper(ArrayList<String> errors,MyString a,String b,int start,int end){
-    try{
-      if(a.subSequence(start,end).compareTo(b.subSequence(start,end))!=0) {
-        errors.add("incorrect output for \""+b+"\".subSequence("+start+","+end+"): correct "+b.subSequence(start,end)+", returned "+a.subSequence(start,end));
-      }
-    }catch(StringIndexOutOfBoundsException e){
-      errors.add("StringIOOB exception raised when not necessary, \""+b+"\".subSequence("+start+","+end+")");
-    }catch(ArrayIndexOutOfBoundsException e){
-      errors.add("array threw ArrayIOOB, unnecessary and should never be thrown; \""+b+"\".subSequence("+start+","+end+")");
-    }catch(Exception e){
-      errors.add("unexpected exception "+e.getClass().getName()+" thrown for \""+b+"\".subSequence("+start+","+end+")");
+    if (goodSubSequence){
+      System.out.println("Nice job! Everything works for your subSequence!");
     }
-  }
-  public static ArrayList<String> testToString(MyString[] A,String[] B){
-    ArrayList<String> errors = new ArrayList<String>();
-    for(int i=0;i<A.length;i++){
-      try{
-        if(!(A[i].toString().equals(B[i]))){
-          errors.add("incorrect output for toString method, \""+B[i]+"\".toString() returns "+A[i].toString()+", correct: \""+B[i]+"\"");
-        }
-      }catch(Exception e){
-        errors.add("unexpected exception "+e.getClass().getName()+" thrown for \""+B[i]+"\".toString(), no exception should ever be thrown here");
-      }
+    else{
+      System.out.println("Uh oh, you had some mistakes in your subSequence. Scroll up for the specific test cases!");
     }
-    return errors;
-  }
-  public static ArrayList<String> testCompareTo(MyString[] A,String[] B){
-    ArrayList<String> errors = new ArrayList<String>();
-    int k;//for use within loop
-    MyString empty = new MyString("");
-    for(int i=0;i<A.length;i++){
-      for(int j=0;j<6;j++){//six unspecified tests
-        k = randInt(0,A.length);
-        testCTHelper(errors,A[i],B[i],A[k],B[k]);
-        testCTHelper(errors,A[k],B[k],A[i],B[i]);
-      }
-      testCTHelper(errors,A[i],B[i],A[i],B[i]);//should always be 0: testing against self
-      testCTHelper(errors,A[i],B[i],empty,"");//test against empty string
-      testCTHelper(errors,empty,"",A[i],B[i]);//test empty string against it
-      for(int j=0;j<6;j++){//tests where length will determine; subsequences(relies on working subSequence)
-        k = randInt(0,B[i].length());
-        testCTHelper(errors,A[i],B[i],A[i].subSequence(0,k),B[i].substring(0,k));
-        testCTHelper(errors,A[i].subSequence(0,k),B[i].substring(0,k),A[i],B[i]);
-      }
+    if (goodCompareTo){
+      System.out.println("Nice job! Everything works for your compareTo!");
     }
-    return errors;
-  }
-  public static void testCTHelper(ArrayList<String> errors,MyString aI,String bI,MyString aK,String bK){
-    int aCompareTo,bCompareTo;
-    try{
-      aCompareTo = aI.compareTo(aK);
-      bCompareTo = bI.compareTo(bK);
-      if (!(signsMatch(aCompareTo,bCompareTo))){
-        errors.add("incorrect sign output for \""+bI+"\".compareTo\""+bK+"\") returns "+signOf(aCompareTo)+", correct: "+signOf(bCompareTo));
-      }
-    }catch(StringIndexOutOfBoundsException e){
-      errors.add("StringIOOB thrown by \""+bI+"\".compareTo(\""+bK+"\"), no exception should ever be thrown here (likely a bad loop)");
-    }catch(Exception e){
-      errors.add("unexpected exception "+e.getClass().getName()+" thrown for \""+bI+"\".compareTo(\""+bK+"\"), no exception should ever be thrown here");
+    else{
+      System.out.println("Uh oh, you had some mistakes in your compareTo. Scroll up for the specific test cases!");
     }
-  }
-  public static boolean signsMatch(int a,int b){
-    if(a==0||b==0) return a==b;
-    return a/Math.abs(a)==b/Math.abs(b);
-  }
-  public static char signOf(int a){
-    if (a==0) return '0';
-    if (a<0) return '-';
-    else return '+';
+    if (goodConstructor&&goodCharAt&&goodLength&&goodSubSequence&&goodCompareTo){
+      System.out.println("\nCongrats! Everything is working nicely :)");
+    }
+    else{
+      System.out.println("\nKeep working! You can do it :)");
+    }
   }
 }
