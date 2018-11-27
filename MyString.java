@@ -41,7 +41,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //The length of the string will be the length of this sequence.
     public String toString () {
       String result = "";
-      for (int i = 0; i < length(); i++) {
+      for (int i = 0; i < data.length; i++) {
         result += data[i];
       }
       return result;
@@ -50,24 +50,21 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 
 //Compares the object and the object specified.
     public int compareTo (CharSequence o) {
+      int count = 0;
       if (o == null)
         throw new NullPointerException();
         //throws an exception when the object is null.
-      int count = 0;
+        if (data.length < o.length())
+          count = -1;
       if (data.length > o.length())
-        count = 1;
-        //checks if the length of data is not equal to length of charsequence o.
-
-      if (data.length < o.length())
-        count = -1;
-
-      for (int i = 0; i < data.length; i++) {
-        if (data[i] > o.charAt(i))
           count = 1;
-
-          if (data[i] < o.charAt(i))
+        //checks if the length of data is greater or less than object. Return 1 and -1 respectively.
+        if (data.length == o.length()) {
+          for (int i = 0; i < data.length; i++) {
+            if (data[i] > o.charAt(i))
+            count = 1;
+            if (data[i] < o.charAt(i))
             count = -1;
-
           //uses a for loop to check if the specified value at data is not equal to charsequence o.
           // Returns -1, 1, 0
         }
@@ -76,88 +73,5 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
       //if they're the same, then return 0.
     //a negative integer, zero, or a positive integer as this object is less than,
     //equal to, or greater than the specified object.
-/*
-    public static void main(String[] args) {
-
-    // sole constructor test
-    MyString msg = new MyString("droid");
-    System.out.println("MyString msg = new MyString(\"charlotte\")");
-
-    // toString()
-    System.out.println("msg: " + msg);                                                  // "droid"
-
-    // length()
-    System.out.println("msg.length(): " + msg.length());                                // 5
-
-    System.out.println();
-
-    // charAt() exception catch
-    System.out.println("msg.charAt(-1):");
-    try {
-      System.out.println(msg.charAt(-1));                             // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    System.out.println("msg.charAt(15):");
-    try {
-      System.out.println(msg.charAt(15));                             // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    // charAt()
-    System.out.println("msg.charAt(0): " + msg.charAt(0));                              // "d"
-    System.out.println("msg.charAt(3): " + msg.charAt(3));                              // "i"
-
-    System.out.println();
-
-    // subSequence() exception catch
-    // start < 0
-    System.out.println("msg.subSequence(-1,4):");
-    try {
-      System.out.println(msg.subSequence(-1,4));                      // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    // end < 0
-    System.out.println("msg.subSequence(1,-4):");
-    try {
-      System.out.println(msg.subSequence(1,-4));                      // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    // start > end
-    System.out.println("msg.subSequence(11,4):");
-    try {
-      System.out.println(msg.subSequence(11,4));                      // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    // end > length()
-    System.out.println("msg.subSequence(1,14):");
-    try {
-      System.out.println(msg.subSequence(1,14));                      // IndexOutOfBoundsException
-    } catch(IndexOutOfBoundsException e) { e.printStackTrace(); }
-
-    System.out.println();
-
-    // subSequence()
-    System.out.println("msg.subSequence(0,3): " + msg.subSequence(0,3));                // "dro"
-    System.out.println("msg.subSequence(2,5): " + msg.subSequence(2,5));                // "oid"
-
-    System.out.println();
-
-    // compareTo()
-    System.out.println("msg.compareTo(\"droid\"): " + msg.compareTo("droid"));          // 0
-    System.out.println("msg.compareTo(\"bat\"): " + msg.compareTo("bat"));              // 1
-    System.out.println("msg.compareTo(\"seventh\"): " + msg.compareTo("seventh"));      // -1
-    System.out.println("msg.compareTo(\"drank\"): " + msg.compareTo("drank"));          // 1
-    System.out.println("msg.compareTo(\"drunk\"): " + msg.compareTo("drunk"));          // -1
-
   }
-  */
   }
