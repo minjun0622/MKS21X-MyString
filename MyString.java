@@ -2,7 +2,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
   private char[] data;
 
   public MyString(CharSequence s){
-    data = new char[s.length];
+    data = new char[s.length()];
 //Initializing data with the length of s.
     for (int i = 0; i < s.length(); i++) {
       data[i] = s.charAt(i);
@@ -21,7 +21,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
     }
 
 //Returns the length of the sequence at the index specified.
-    public int length(int index) {
+    public int length() {
       return data.length;
     }
 
@@ -29,8 +29,7 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //subSequence returns the sequence of strings beginning from start integer and end intger.
     public CharSequence subSequence(int start, int end) {
       if (start < 0 || end < 0 || end > length() || start > end) {
-        throw new IndexOutofBoundsException("Start is not negative,
-        end is not negative, end should not be greater than length, start is not greater than end.");
+        throw new IndexOutofBoundsException("Start is not negative, end is not negative, end should not be greater than length, start is not greater than end.");
       }
       String result = "";
       for (int i = start; i < end; i++) {
