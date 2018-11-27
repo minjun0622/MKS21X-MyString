@@ -1,6 +1,5 @@
 public class MyString implements CharSequence, Comparable<CharSequence>{
   private char[] data;
-
   public MyString(CharSequence s){
     data = new char[s.length()];
 //Initializing data with the length of s.
@@ -14,11 +13,11 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //The first char value of the sequence is at index zero, the next at index one, and so on, as for array indexing.
 //If the char value specified by the index is a surrogate, the surrogate value is returned.
   public char charAt(int index) {
-    if (index < 0 || index >= data.length) {
-      throw new IndexOutofBoundsException("Index cannot be negative or greater/equal to the length");
-    }
+    if (index < 0 || index >= data.length)
+      throw new IndexOutOfBoundsException();
     return data[index];
     }
+
 
 //Returns the length of the sequence at the index specified.
     public int length() {
@@ -28,14 +27,14 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 //Charsequence is a sequence of strings,
 //subSequence returns the sequence of strings beginning from start integer and end intger.
     public CharSequence subSequence(int start, int end) {
-      if (start < 0 || end < 0 || end > length() || start > end) {
-        throw new IndexOutofBoundsException("Start is not negative, end is not negative, end should not be greater than length, start is not greater than end.");
-      }
+       if (start < 0 || end < 0 || end > length() || start > end)
+        throw new IndexOutOfBoundsException();
       String result = "";
       for (int i = start; i < end; i++) {
         result += data[i];
         //Utilizes a for loop to start from the start specified with the integer and ending it with an end.
       }
+      return result;
     }
 
 //Returns a string containing the characters in this sequence in the same order as this sequence.
@@ -51,23 +50,30 @@ public class MyString implements CharSequence, Comparable<CharSequence>{
 
 //Compares the object and the object specified.
     public int compareTo (CharSequence o) {
-      if (o == null) {
-        throw new NullPointerException("The object cannot be null");
+      if (o == null)
+        throw new NullPointerException();
         //throws an exception when the object is null.
-      }
-      if (data.length != o.length()) {
-        return data.length - o.length();
+      int count = 0;
+      if (data.length > o.length())
+        count = 1;
         //checks if the length of data is not equal to length of charsequence o.
-      }
+
+      if (data.length < o.length())
+        count = -1;
+
       for (int i = 0; i < data.length; i++) {
-        if (data[i] != o.charAt(i)) {
-          return data[i] - o.charAt(i);
+        if (data[i] > o.charAt(i))
+          count = 1;
+
+          if (data[i] < o.charAt(i))
+            count = -1;
+
           //uses a for loop to check if the specified value at data is not equal to charsequence o.
+          // Returns -1, 1, 0
         }
       }
-      return 0;
+      return count;
       //if they're the same, then return 0.
-    }
     //a negative integer, zero, or a positive integer as this object is less than,
     //equal to, or greater than the specified object.
 /*
